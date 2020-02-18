@@ -125,8 +125,8 @@ export class BsDaterangepickerDirective
   private _datepickerRef: ComponentRef<BsDaterangepickerContainerComponent>;
 
   constructor(public _config: BsDaterangepickerConfig,
-              _elementRef: ElementRef,
-              _renderer: Renderer2,
+              private  _elementRef: ElementRef,
+              private  _renderer: Renderer2,
               _viewContainerRef: ViewContainerRef,
               cis: ComponentLoaderFactory) {
     this._datepicker = cis.createLoader<BsDaterangepickerContainerComponent>(
@@ -248,7 +248,10 @@ export class BsDaterangepickerDirective
     for (const sub of this._subs) {
       sub.unsubscribe();
     }
-  }
+
+    if (this._config.returnFocusToInput) {
+      this._renderer.selectRootElement(this._elementRef.nativeElement).focus();
+    }    }
 
   /**
    * Toggles an element’s datepicker. This is considered a “manual” triggering
