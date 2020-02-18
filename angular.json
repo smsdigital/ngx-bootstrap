@@ -96,9 +96,6 @@
             },
             "server": {
               "browserTarget": "ngx-bootstrap:build:server"
-            },
-            "ivy": {
-              "browserTarget": "ngx-bootstrap:build:ivy"
             }
           }
         },
