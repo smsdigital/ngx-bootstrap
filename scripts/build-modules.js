@@ -40,13 +40,13 @@ async function buildAll() {
 const cli = meow(`
 	Options
 	  --watch Rebuild on source change
-	  --latest required for Latest Env
+	  --local required for correct rebuild on local build
 `, {
   flags: {
     watch: {
       type: 'boolean'
     },
-    latest: {
+    local: {
       type: 'boolean'
     }
   }
@@ -69,8 +69,8 @@ async function buildModules(modules) {
   for (let module of modules) {
     console.log('Building', module, 'module');
     await execa.shell(`rimraf ${dist}/${module} && node scripts/ng-packagr/api ../../src/${module}/package.json`);
-    if (flags.latest) {
-      await execa.shell(`npm run dist-to-modules.deploy`);
+    if (flags.local) {
+      await execa.shell(`npm run dist-to-modules.local`);
     } else {
       await execa.shell(`npm run dist-to-modules`);
     }

@@ -85,7 +85,7 @@ jobs:
     install: true
     script:
     - npm ci
-    - npm run build
+    - npm run build.local
     - npm run ci:update-pkg
     - if [[ "$TRAVIS_PULL_REQUEST" != false ]]; then export NPM_AUTH_TOKEN_CI=$NPM_AUTH_TOKEN_CI_PR; fi
     - npm config set '//registry.npmjs.org/:_authToken' $NPM_AUTH_TOKEN_CI
@@ -139,9 +139,7 @@ jobs:
 
   - &surge
     stage: deploy
-    script:
-    - if [[ "$NGV" == "latest" ]]; then npm run demo.build:latest; fi
-    - if [[ "$NGV" != "latest" ]]; then npm run demo.build; fi
+    script:  npm run demo.build
     deploy:
       provider: surge
       project: ./gh-pages/
