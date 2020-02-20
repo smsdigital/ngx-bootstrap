@@ -121,6 +121,8 @@ export class TimepickerComponent
   @Input() minutesPlaceholder: string;
   /** placeholder for seconds field in timepicker */
   @Input() secondsPlaceholder: string;
+  /** if true input is only possible via spinner buttons */
+  @Input() spinnersOnly: boolean;
 
   /** emits true if value is a valid date */
   @Output() isValid = new EventEmitter<boolean>();

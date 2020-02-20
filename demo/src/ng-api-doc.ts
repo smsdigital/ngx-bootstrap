@@ -3404,6 +3404,24 @@ export const ngdoc: any = {
     "methods": [],
     "properties": [
       {
+        "name": "ariaLabelHours",
+        "defaultValue": "hours",
+        "type": "string",
+        "description": "<p>hours aria label</p>\n"
+      },
+      {
+        "name": "ariaLabelMinutes",
+        "defaultValue": "minutes",
+        "type": "string",
+        "description": "<p>minutes aria label</p>\n"
+      },
+      {
+        "name": "ariaLabelSeconds",
+        "defaultValue": "seconds",
+        "type": "string",
+        "description": "<p>seconds aria label</p>\n"
+      },
+      {
         "name": "arrowkeys",
         "defaultValue": "true",
         "type": "boolean",
