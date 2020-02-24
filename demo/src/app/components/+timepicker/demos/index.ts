@@ -15,6 +15,7 @@ import { DemoTimepickerSpinnersComponent } from './spinners/spinners';
 import { DemoTimepickerReadonlyComponent } from './readonly/readonly';
 import { DemoTimepickerFormComponent } from './form/form';
 import { DemoTimepickerPlaceholderComponent } from './placeholder/placeholder';
+import { DemoTimepickerSpinnersOnlyComponent } from './spinnersOnly/spinnersOnly';
 
 export const DEMO_COMPONENTS = [
   DemoTimepickerBasicComponent,
@@ -34,5 +35,6 @@ export const DEMO_COMPONENTS = [
   DemoTimepickerIsValidComponent,
   DemoTimepickerCustomValidationComponent,
   DemoTimepickerSpinnersComponent,
+  DemoTimepickerSpinnersOnlyComponent,
   DemoTimepickerPlaceholderComponent
 ];

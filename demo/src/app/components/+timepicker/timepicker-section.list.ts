@@ -13,6 +13,7 @@ import { DemoTimepickerArrowkeysComponent } from './demos/arrowkeys/arrowkeys';
 import { DemoTimepickerConfigComponent } from './demos/config/config';
 import { DemoTimepickerReadonlyComponent } from './demos/readonly/readonly';
 import { DemoTimepickerSpinnersComponent } from './demos/spinners/spinners';
+import { DemoTimepickerSpinnersOnlyComponent } from './demos/spinnersOnly/spinnersOnly';
 
 import { ContentSection } from '../../docs/models/content-section.model';
 import { DemoTopSectionComponent } from '../../docs/demo-section-components/demo-top-section/index';
@@ -96,6 +97,13 @@ export const demoComponentContent: ContentSection[] = [
         component: require('!!raw-loader!./demos/readonly/readonly'),
         html: require('!!raw-loader!./demos/readonly/readonly.html'),
         outlet: DemoTimepickerReadonlyComponent
+      },
+      {
+        title: 'Spinners Only',
+        anchor: 'spinnersOnly',
+        component: require('!!raw-loader!./demos/spinnersOnly/spinnersOnly'),
+        html: require('!!raw-loader!./demos/spinnersOnly/spinnersOnly.html'),
+        outlet: DemoTimepickerSpinnersOnlyComponent
       },
       {
         title: 'Custom steps',
