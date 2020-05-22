@@ -17,6 +17,18 @@ import { DatepickerDateCustomClasses } from './models';
   exportAs: 'bsDatepickerInline'
 })
 export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges {
+
+  /**
+   * Emits an event when the datepicker is shown
+   */
+  /* tslint:disable-next-line: no-any*/
+  @Output() onShown: EventEmitter<any>;
+  /**
+   * Emits an event when the datepicker is hidden
+   */
+  /* tslint:disable-next-line: no-any*/
+  @Output() onHidden: EventEmitter<any>;
+
   _bsValue: Date;
   /**
    * Initial value of datepicker
@@ -82,6 +94,9 @@ export class BsDatepickerInlineDirective implements OnInit, OnDestroy, OnChanges
       _viewContainerRef,
       _renderer
     );
+
+    this.onShown = this._datepicker.onShown;
+    this.onHidden = this._datepicker.onHidden;
   }
 
   ngOnInit(): void {
