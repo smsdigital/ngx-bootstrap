@@ -39,7 +39,7 @@ export function toNumber(value: string | number): number {
     return value;
   }
 
-  return parseInt(value, dex);
+  return +value;
 }
 
 export function isNumber(value: string | number): value is number {
