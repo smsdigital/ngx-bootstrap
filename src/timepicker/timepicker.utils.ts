@@ -1,6 +1,5 @@
 import { Time, TimepickerComponentState } from './timepicker.models';
 
-const dex = 10;
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;
 const minutesPerHour = 60;
