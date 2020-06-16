@@ -33,7 +33,8 @@ import {
   isHourInputValid,
   isMinuteInputValid,
   isSecondInputValid,
-  isInputLimitValid
+  isInputLimitValid,
+  setTime
 } from './timepicker.utils';
 
 import { Subscription } from 'rxjs';
@@ -171,6 +172,8 @@ export class TimepickerComponent
 
   timepickerSub: Subscription;
 
+  private lastDate: Date;
+
   constructor(
     _config: TimepickerConfig,
     private _cd: ChangeDetectorRef,
@@ -182,6 +185,9 @@ export class TimepickerComponent
     this.timepickerSub = _store
       .select(state => state.value)
       .subscribe((value: Date) => {
+
+        // remember last date in component so that we can call onChange later independent from store
+        this.lastDate = value;
         // update UI values if date changed
         this._renderTime(value);
         this.onChange(value);
@@ -256,6 +262,7 @@ export class TimepickerComponent
 
       return;
     }
+
     this._updateTime(blurred);
   }
 
@@ -312,18 +319,23 @@ export class TimepickerComponent
       return;
     }
 
+    const time = {
+      hour: this.hours,
+      minute: this.minutes,
+      seconds: this.seconds,
+      isPM: this.isPM()
+    };
     // We only dipatch this action if the user blurred the field.
     // Otherwise, the store change would trigger _renderTime function
     // while the user is typing which would be really annoying.
     if (blurred) {
       this._store.dispatch(
-        this._timepickerActions.setTime({
-          hour: this.hours,
-          minute: this.minutes,
-          seconds: this.seconds,
-          isPM: this.isPM()
-        })
+        this._timepickerActions.setTime(time)
       );
+    } else {
+      // But if the field has not been blurred yet, we still need to notify
+      // the parent component so that validation can be updated immmediately.
+      this.onChange(setTime(this.lastDate, time));
     }
   }
 

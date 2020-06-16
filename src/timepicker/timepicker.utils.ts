@@ -38,7 +38,7 @@ export function toNumber(value: string | number): number {
     return value;
   }
 
-  return +value;
+  return Number(value);
 }
 
 export function isNumber(value: string | number): value is number {
