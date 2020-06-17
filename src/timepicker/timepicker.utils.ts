@@ -1,6 +1,5 @@
 import { Time, TimepickerComponentState } from './timepicker.models';
 
-const dex = 10;
 const hoursPerDay = 24;
 const hoursPerDayHalf = 12;
 const minutesPerHour = 60;
@@ -39,7 +38,7 @@ export function toNumber(value: string | number): number {
     return value;
   }
 
-  return parseInt(value, dex);
+  return Number(value);
 }
 
 export function isNumber(value: string | number): value is number {

@@ -33,7 +33,8 @@ import {
   isHourInputValid,
   isMinuteInputValid,
   isSecondInputValid,
-  isInputLimitValid
+  isInputLimitValid,
+  setTime
 } from './timepicker.utils';
 
 import { Subscription } from 'rxjs';
@@ -171,6 +172,8 @@ export class TimepickerComponent
 
   timepickerSub: Subscription;
 
+  private lastDate: Date;
+
   constructor(
     _config: TimepickerConfig,
     private _cd: ChangeDetectorRef,
@@ -182,6 +185,9 @@ export class TimepickerComponent
     this.timepickerSub = _store
       .select(state => state.value)
       .subscribe((value: Date) => {
+
+        // remember last date in component so that we can call onChange later independent from store
+        this.lastDate = value;
         // update UI values if date changed
         this._renderTime(value);
         this.onChange(value);
@@ -243,8 +249,8 @@ export class TimepickerComponent
     );
   }
 
-  updateHours(hours: string): void {
-    this.resetValidation();
+  updateHours(hours: string, blurred = true): void {
+    this.invalidHours = false;
     this.hours = hours;
 
     const isValid = isHourInputValid(this.hours, this.isPM()) && this.isValidLimit();
@@ -257,11 +263,11 @@ export class TimepickerComponent
       return;
     }
 
-    this._updateTime();
+    this._updateTime(blurred);
   }
 
-  updateMinutes(minutes: string) {
-    this.resetValidation();
+  updateMinutes(minutes: string, blurred = true) {
+    this.invalidMinutes = false;
     this.minutes = minutes;
 
     const isValid = isMinuteInputValid(this.minutes) && this.isValidLimit();
@@ -274,11 +280,11 @@ export class TimepickerComponent
       return;
     }
 
-    this._updateTime();
+    this._updateTime(blurred);
   }
 
-  updateSeconds(seconds: string) {
-    this.resetValidation();
+  updateSeconds(seconds: string, blurred = true) {
+    this.invalidSeconds = false;
     this.seconds = seconds;
 
     const isValid = isSecondInputValid(this.seconds) && this.isValidLimit();
@@ -291,7 +297,7 @@ export class TimepickerComponent
       return;
     }
 
-    this._updateTime();
+    this._updateTime(blurred);
   }
 
   isValidLimit(): boolean {
@@ -303,7 +309,7 @@ export class TimepickerComponent
     }, this.max, this.min);
   }
 
-  _updateTime() {
+  _updateTime(blurred = true) {
     const _seconds = this.showSeconds ? this.seconds : void 0;
     const _minutes = this.showMinutes ? this.minutes : void 0;
     if (!isInputValid(this.hours, _minutes, _seconds, this.isPM())) {
@@ -313,14 +319,24 @@ export class TimepickerComponent
       return;
     }
 
-    this._store.dispatch(
-      this._timepickerActions.setTime({
-        hour: this.hours,
-        minute: this.minutes,
-        seconds: this.seconds,
-        isPM: this.isPM()
-      })
-    );
+    const time = {
+      hour: this.hours,
+      minute: this.minutes,
+      seconds: this.seconds,
+      isPM: this.isPM()
+    };
+    // We only dipatch this action if the user blurred the field.
+    // Otherwise, the store change would trigger _renderTime function
+    // while the user is typing which would be really annoying.
+    if (blurred) {
+      this._store.dispatch(
+        this._timepickerActions.setTime(time)
+      );
+    } else {
+      // But if the field has not been blurred yet, we still need to notify
+      // the parent component so that validation can be updated immmediately.
+      this.onChange(setTime(this.lastDate, time));
+    }
   }
 
   toggleMeridian(): void {
