@@ -34,7 +34,7 @@
     <td class="form-group" [class.has-error]="invalidHours">
       <input type="text" [class.is-invalid]="invalidHours"
              pattern="[0-9]*"
-             class="form-control text-center bs-timepicker-field"
+             class="form-control text-center bs-timepicker-field bs-timepicker-field-hours"
              [placeholder]="hoursPlaceholder"
              maxlength="2"
              [readonly]="readonlyInput||spinnersOnly"
@@ -52,7 +52,7 @@
     <td class="form-group" *ngIf="showMinutes" [class.has-error]="invalidMinutes">
       <input type="text" [class.is-invalid]="invalidMinutes"
              pattern="[0-9]*"
-             class="form-control text-center bs-timepicker-field"
+             class="form-control text-center bs-timepicker-field bs-timepicker-field-minutes"
              [placeholder]="minutesPlaceholder"
              maxlength="2"
              [readonly]="readonlyInput||spinnersOnly"
@@ -71,7 +71,7 @@
     <td class="form-group" *ngIf="showSeconds" [class.has-error]="invalidSeconds">
       <input type="text" [class.is-invalid]="invalidSeconds"
              pattern="[0-9]*"
-             class="form-control text-center bs-timepicker-field"
+             class="form-control text-center bs-timepicker-field bs-timepicker-field-seconds"
              [placeholder]="secondsPlaceholder"
              maxlength="2"
              [readonly]="readonlyInput||spinnersOnly"
