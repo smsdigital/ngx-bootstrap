@@ -168,15 +168,15 @@ export function padNumber(value: number): string {
 }
 
 export function isHourInputValid(hours: string, isPM: boolean): boolean {
-  return !isNaN(parseHours(hours, isPM));
+  return hours.length > 0 && !isNaN(parseHours(hours, isPM));
 }
 
 export function isMinuteInputValid(minutes: string): boolean {
-  return !isNaN(parseMinutes(minutes));
+  return minutes.length > 0 && !isNaN(parseMinutes(minutes));
 }
 
 export function isSecondInputValid(seconds: string): boolean {
-  return !isNaN(parseSeconds(seconds));
+  return seconds.length > 0 && !isNaN(parseSeconds(seconds));
 }
 
 export function isInputLimitValid(diff: Time, max: Date, min: Date): boolean {

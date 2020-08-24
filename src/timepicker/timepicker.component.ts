@@ -417,8 +417,12 @@ export class TimepickerComponent
       }
     }
 
-    this.hours = padNumber(_hours);
-    this.minutes = padNumber(_value.getMinutes());
-    this.seconds = padNumber(_value.getUTCSeconds());
+    const activeElementClasses = document.activeElement.classList;
+    const hoursActive = activeElementClasses.contains('bs-timepicker-field-hours');
+    const minutesActive = activeElementClasses.contains('bs-timepicker-field-minutes');
+    const secondsActive = activeElementClasses.contains('bs-timepicker-field-seconds');
+    this.hours = hoursActive ? `${_value.getHours()}` : padNumber(_hours);
+    this.minutes = minutesActive ? `${_value.getMinutes()}` : padNumber(_value.getMinutes());
+    this.seconds = secondsActive ? `${_value.getUTCSeconds()}` : padNumber(_value.getUTCSeconds());
   }
 }
